@@ -1,0 +1,925 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0f14">
+  <meta name="description" content="迪迪的心屿 —— 陪你看雨，也记得你喜欢的伞。一个主动感知、与你共建的情绪岛屿。">
+  <title>迪迪的心屿 · 你的情绪岛屿</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='0.9em'%20font-size='90'%3E%F0%9F%8C%8A%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style-v66.css?v=20260802-68">
+</head>
+<body>
+
+  <!-- 启动页：完全照抄 Mineradio 入场动画 -->
+  <div id="splash">
+    <canvas id="splash-canvas" aria-hidden="true"></canvas>
+    <div class="splash-bg-noise" aria-hidden="true"></div>
+    <div class="splash-content">
+      <div class="splash-wordmark" aria-label="迪迪的心屿">
+        <span class="splash-word-mine">迪迪的</span>
+        <span class="splash-word-radio">心<span class="splash-word-i" aria-hidden="true"></span>屿</span>
+      </div>
+      <div class="splash-signal-line"></div>
+      <div class="splash-sub">陪你慢慢靠岸的情绪小岛</div>
+      <div class="splash-enter" aria-hidden="true">点击进入</div>
+    </div>
+  </div>
+
+  <!-- 光遇风 + Love-Code 030：星域粒子文字引导（保留小猫发财） -->
+  <div id="welcome" class="welcome hidden">
+    <div class="welcome-moon" aria-hidden="true"></div>
+    <canvas id="welcomeUniverse" aria-hidden="true"></canvas>
+    <canvas id="welcomeFx" aria-hidden="true"></canvas>
+    <audio id="welcomeMusic" autoplay loop preload="auto">
+      <source src="audio/%5BNo%20Copyright%20Music%5D%20Unconditionally%20-%20Broken%20Elegance.mp3" type="audio/mpeg">
+    </audio>
+    <div class="welcome-scene">
+      <svg class="welcome-ground" viewBox="0 0 1680 300" preserveAspectRatio="none" aria-hidden="true">
+        <path class="ground-body" d="M0,316.4209c0,0,157.7119-35.416,469-56c7.3833-0.4883,23.7876-3.5488,31.3335-4.0166
+            c3.7681-0.2334,19.4302,0.9424,28.3335,0.3506c17.1494-1.1396,30.9072-4.2734,38.333-4.6836
+            c7.5972-0.4189,18.4058,0.3799,27.6665-0.9834c5.7075-0.8408,10.1318-4.042,14.9248-4.2705
+            c7.8369-0.373,24.5693,3.6084,34.4087,4.2705c11.0586,0.7432,15.2656-1.8135,24.3335-2.1523c10.0576-0.376,20.4629,1.3867,28.6665,0
+            c3.5957-0.6074,4.4194,0.4209,7.7227-0.7715c1.4927-0.5391,5.8179-3.5693,6.9438-4.2432c3.8335,0.667,6.1426-1.0732,9.917-1.167
+            c2.2739-0.0566,3.9673-0.9072,6.249-0.9609c2.2725-0.0537,5.5547-1.2383,7.8345-1.2881c2.25-0.0498,3.498,1.0352,5.7554,0.9883
+            c2.9648-0.0615,7.9341,0.3164,10.9111,0.2607c2.2461-0.042,2.4976-0.5195,4.7505-0.5586c2.9663-0.0518,2.1045-0.5615,5.0825-0.6074
+            c1.5811-0.0244,6.9976,0.4131,8.582,0.3896c0.8887-0.0127,2.6113,0.373,3.5015,0.3604c1.5527-0.0215,2.2739-0.4404,3.8296-0.4609
+            c1.416-0.0186,2.0854-0.8555,3.5039-0.873c1.0835-0.0127,2.9155,0.7939,4.0005,0.7813c1.1104-0.0127,3.5542,0.4805,4.666,0.4688
+            c1.3047-0.0137,1.2773-0.5332,2.584-0.5459c1.415-0.0137,1.165-0.4414,2.5825-0.4541c0.916-0.0078,3.499,0.3984,4.416,0.3906
+            c1.499-0.0127,1.833,0.6221,3.3345,0.6104c1.3296-0.0098,3.8267-0.666,5.1587-0.6748c1.3335-0.0088,2.8389-0.6514,4.1743-0.6592
+            c1.3335-0.0078,2.4971,0.6191,3.8325,0.6123c2.5518-0.0127,7.3579,0.3965,9.9175,0.3877c5.3169-0.0176,5.5796-0.4063,10.9297-0.4063
+            c1.8379,0,6.7031,1.3184,8.3203,1.2402c2.1055-0.1016,3.7139-1.6572,5.5283-1.7969c3.9541-0.3037,7.3262-0.5732,10.5986-0.2598
+            c6.248,0.5977,12.1973-0.8125,21.207-0.7539c1.7266,0.0107,15.7813,3.085,17.5,3.0977c3.4014,0.0254,6.6191-1.3398,9.9971-1.3066
+            c4.1221,0.041,8.2275,1.2529,12.3369,1.3066c2.0752,0.0273,4.1543-1.1084,6.2314-1.0771c3.3662,0.0498,4.5547,1.0166,7.9346,1.0771
+            c2.1104,0.0381,6.4063-0.834,8.5264-0.792c2.7021,0.0537,4.4766-1.6729,7.2002-1.6113c2.9277,0.0654,7.6465,3.1641,10.6074,3.2393
+            c4.8359,0.123,8.8809-0.9854,13.832-0.8359c2.5029,0.0752,11.8818,2.0498,14.375,2.1289c1.8398,0.0586,2.499-1.2188,4.334-1.1582
+            c2.1689,0.0713,4.5049,1.209,6.666,1.2832c2.6699,0.0908,4.3398-0.916,6.998-0.8203c3.3379,0.1201,6.0566,1.3193,9.377,1.4453
+            c4.001,0.1514,4.7764-1.1602,8.75-1c3.1836,0.1289,16.834,1.9912,20,2.125c4.0059,0.1699,4.0029-0.9004,7.9814-0.7227
+            c6.8594,0.3076,7.9102,1.7656,14.6855,2.0977c8.916,0.4365,23.5254-0.2432,32.293,0.2344
+            c6.7168,0.3662,13.3896,0.7432,20.0186,1.1318C1458.8545,268.4941,1680,316.4209,1680,316.4209H0z"/>
+        <path class="scene-stone" d="M680.3335,250.7549c7.3335,0.333,13.6665-1.2549,6-6.4609s-14.333-7.1221-18.6665,0.8359
+            S680.3335,250.7549,680.3335,250.7549z"/>
+        <path class="scene-stone" d="M750.5,243.1709c3.25,0,2.5-3.707-1.75-4.2285s-5,3.7285-3,4.2285S750.5,243.1709,750.5,243.1709z"/>
+        <path class="scene-stone" d="M988.4893,243.8242c2.8857,0.3467,4.8438,1.2627,3.0107-2.0703s-7.3955,1.3555-5.2031,1.7129
+            S988.4893,243.8242,988.4893,243.8242z"/>
+        <path class="scene-stone" d="M697,248.9355c2.0142-0.2021,2.1665-2.0156,1-2.1816s-9.1543,1.8398-5.9937,2.6699S697,248.9355,697,248.9355z"/>
+        <g class="scene-greens" transform="translate(850, 180)">
+          <g>
+            <path d="M36.3877,59.4268C33.0576,18.9482,6.4658,4.522,6.4658,4.522s22.4834,16.1426,24.4414,54.2251
+    C32.8657,96.8311,36.3877,59.4268,36.3877,59.4268z"/>
+            <path d="M41.8496,83.1641C31.1572,43.98,2.3711,34.6738,2.3711,34.6738s25.063,11.7471,33.9668,48.8271
+    C45.2441,120.5791,41.8496,83.1641,41.8496,83.1641z"/>
+            <path d="M31.3955,60.7207C23.7139,25.7979,2.5381,16.9541,2.5381,16.9541s18.4165,10.9277,24.7925,43.9502
+    C33.7061,93.9258,31.3955,60.7207,31.3955,60.7207z"/>
+            <path d="M40.4517,62.0068C47.9473,21.6187,25.4009,0.1914,25.4009,0.1914s18.0098,21.9634,9.7896,59.6357
+    C26.9722,97.499,40.4517,62.0068,40.4517,62.0068z"/>
+            <path d="M41.9414,69.4316c13.0313-38.9565-6.3218-63.3062-6.3218-63.3062s14.7856,24.251,1.4141,60.4185
+    C23.6621,102.709,41.9414,69.4316,41.9414,69.4316z"/>
+            <path d="M29.4976,87.9092c27.4097-30.5938,19.2993-60.6226,19.2993-60.6226s3.958,28.1255-22.6606,56.0249
+    C-0.4775,111.2109,29.4976,87.9092,29.4976,87.9092z"/>
+            <animateTransform attributeName="transform" type="skewX" values="0;10;0" begin="0s" dur="5.5s" fill="freeze" repeatCount="indefinite"/>
+            <animateMotion type="translate" values="0,0;-10,0;0,0" begin="0s" dur="5.5s" fill="freeze" repeatCount="indefinite"/>
+          </g>
+          <g>
+            <path d="M34.9995,60.4189C56.0713,30.6665,46.1133,5.4014,46.1133,5.4014S52.2559,29.4746,31.6235,56.79
+    C10.9917,84.1035,34.9995,60.4189,34.9995,60.4189z"/>
+            <path d="M36.3047,64.5391c28.4629-23.4443,25.3262-51.189,25.3262-51.189s-0.293,25.4971-27.6851,46.6538
+    C6.5552,81.1631,36.3047,64.5391,36.3047,64.5391z"/>
+            <path d="M33.0449,70.502c31.4424-19.2637,32.1875-47.1748,32.1875-47.1748s-3.8291,25.208-33.897,42.3584
+    C1.271,82.833,33.0449,70.502,33.0449,70.502z"/>
+            <path d="M13.8237,76.0244c36.5039-5.2158,48.2563-30.543,48.2563-30.543S48.5693,67.1045,14.168,70.9248
+    C-20.2324,74.749,13.8237,76.0244,13.8237,76.0244z"/>
+            <animateTransform attributeName="transform" type="skewX" values="0;15;0" begin="0s" dur="5s" fill="freeze" repeatCount="indefinite"/>
+            <animateMotion type="translate" values="0,0;-15,0;0,0" begin="0s" dur="5s" fill="freeze" repeatCount="indefinite"/>
+          </g>
+        </g>
+        <g class="scene-sign" transform="translate(700, 180)">
+          <polygon points="21.2168,1.1143 20.6665,1.5459 19.7593,1.4473 19.229,1.4209 18.9707,1.6274 18.6665,1.9004 17.6865,1.9219
+    37.3516,87.8877 40.8828,87.0791"/>
+          <polygon points="45.4111,9.5537 2.4258,18.7158 1.563,18.498 1.4585,17.2114 0.8291,15.583 0.9165,14.3364 0.0908,12.6548
+    0.2085,12.0864 -0.1924,11.5308 -0.3296,9.271 43.3408,-0.0376 43.4766,0.5015 43.334,0.9629 43.6533,1.2046 43.8232,1.8784
+    43.8965,2.7754 44.2217,3.459 44.625,5.0576 45.041,7.5459 45.2637,7.5962 45.6191,9.0073"/>
+          <polygon points="47.0078,20.8545 4.2368,29.5503 3.5933,28.5903 3.3965,26.9746 2.4683,24.5137 2.8398,24.1372 2.2676,23.7847
+    1.9834,22.7563 2.2417,22.3394 1.7388,21.8706 1.2627,20.1426 44.8281,11.2852 45.082,12.4014 45.0723,12.9517 45.3281,13.481
+    45.752,15.3369 46.0273,17.7524 46.4219,18.2803"/>
+          <polygon points="47.666,31.168 4.7803,39.4023 4.251,37.4004 4.4429,36.1895 3.6465,35.1123 3.0142,32.7178 3.2754,32.1025
+    2.7461,31.7046 2.2676,29.8945 45.9268,21.5107 46.0762,22.2007 45.9512,22.8423 46.2783,23.1372 46.6777,24.9795 46.5234,25.4795
+    47.3027,27.8667 47.8086,30.2017"/>
+        </g>
+        <g class="scene-boy" aria-hidden="true">
+          <g>
+            <path d="M800.7324,167.6929c0,0-7.9688-6.5039-9.7197-8.041c-1.751-1.5366-7.9331-6.5039-8.7197-13.0435
+    c-0.7861-6.5396,6.0752-15.188,17.7969-16.1885c11.7207-1.0005,12.9727,1.0366,14.1514,2.7163
+    c1.1787,1.6792,5.7178,11.1494,5.0752,18.6538c-0.6445,7.5049-5.6826,10.1133-9.7559,13.3652
+    C805.4863,168.4072,800.7324,167.6929,800.7324,167.6929z"/>
+            <path
+              d="M810.7031,169.2109c-1.0723-1.3037-1.3574-2.9556-1.1426-4.0645c0.2139-1.1084-8.041,0.1128-8.8281,2.542
+    c1.6445,1.6787,0.751,3.146-0.5,4.1108c-1.25,0.9648-1.6797,1.502-1.9297,1.8237c0.0361,0.5361,0,0.9653,0,0.9653
+    s-1.4297,1.7153-2.2871,6.5396s-0.6787,6.79-0.9648,8.3267c-0.2852,1.5366-1.4648,5.9678-1.751,10.292s0,4.5742,0,4.5742
+    s1.251,1.7153,1.1436,4.0742s-1.2705,5.6099-1.2705,5.6099s0.2344,1.8945,1.8779,2.252c1.6445,0.3574,2.3594-0.6436,2.3594-0.6436
+    s1.0713,1.3223,1.75,4.0742c0.6797,2.752,0.6436,6.79,1.8945,7.9688c1.251,1.1797,1.6074,0.3223,1.6074,0.3223
+    s0.4648,3.3975-0.9277,6.6855c-1.3945,3.2881-4.1465,6.7568-4.1465,6.7568h11.0781c0,0,1.5723-3.5234-7.1113-2.2363
+    c3.252-4.0742,3.8955-6.1934,4.0391-11.125c1.8223,0.5,4.252,0.6738,4.9316-0.3271c0.5352,1.3223,2.4297,2.1787,3.3584,1.7139
+    c-0.2139,3.7168-1.0713,12.1846-1.0713,12.1846l9.0049,0.2852c0,0-0.751-3.2168-6.29-1.4307
+    c1.001-6.7891,1.3584-11.5068,1.3584-11.5068s1.3584,0.1074,1.8584-0.3926c0.5-0.501,0.6787-5.3252-0.4648-9.9346
+    c-1.1436-4.6104-0.5-4.4678-0.5-4.4678s1.75-0.8213,1.5-2.8584s-0.8574-3.6807-1.5352-5.5391
+    c0.4639-0.1074,1-0.7861-0.6797-2.7158c-0.2148-2.5015-0.9648-6.3242-0.6436-7.6465s0.2148-2.8232-0.1787-4.3599
+    c0-2.4302,0.7148-13.1509-1.25-17.0103c-1.9658-3.8594-2.5371-3.5737-2.5371-3.5737S812.5977,169.0142,810.7031,169.2109z"/>
+          </g>
+          <g transform="translate(783, 122)">
+            <g>
+              <path d="M35.3506,17.9644c2.9834-3.71,5.9824-15.2095-3.1846-18.3765c2.668,3.833,1.168,5.6665,1.168,5.6665
+    S32,1.2549,28.666-0.4121c1.5,3.1665,0,5,0,5S20.5,8.9209,24.5,13.2544S35.3506,17.9644,35.3506,17.9644z"/>
+              <animateTransform attributeName="transform" type="skewX" values="0;30;0" begin="0s" dur="4s" fill="freeze" repeatCount="indefinite"/>
+              <animateMotion type="translate" values="0,0;-10,0;0,0" begin="0s" dur="4s" fill="freeze" repeatCount="indefinite"/>
+            </g>
+            <g>
+              <path d="M27.125,6.2334c-1.8125-0.625-2.0625-1.9375-4.375-2.25c1,0.8125,1.125,1.6875,1.125,1.6875S21.5,4.3584,19.0625,3.9834
+    c1.3125,0.75,2,1.875,2,1.875s-3.25-0.75-5.875-0.75c1.125,0.3125,1.125,0.6875,1.125,0.6875S10.75,5.8584,8.6875,7.4834
+    c1,0.125,0.9375,0.6714,0.9375,0.6714s-4.25,1.5786-5.375,3.7661c0.875-0.4375-0.8125,1.8125-0.8125,1.8125s0.75,1.375-0.3125,1.125
+    S0.5,14.1084,0.5,12.5459c-0.5,2.1875,0.6924,2.5767,1.4375,3.3125c-0.0625,1-0.9375,2.6494-1.25,2.106s0.8594,0.4282,0.0547,2.4731
+    c-0.8047,2.0459-1.1533,3.7432-0.5103,6.5195s2.7056,4.5264,3.5181,6.2139s0.5-1.6875,0.5-1.6875L27.125,6.2334z"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+      <svg class="welcome-cat" viewBox="0 0 200 220" role="img" aria-label="小猫发财">
+        <circle class="cat-aura" cx="100" cy="128" r="82"/>
+        <g class="cat-figure">
+          <g class="cat-pose">
+            <path class="cat-tail" d="M128 172 C 160 166, 172 138, 160 114 C 154 100, 138 96, 132 106"/>
+            <ellipse class="cat-foot fl" cx="76" cy="198" rx="17" ry="9"/>
+            <ellipse class="cat-foot fr" cx="124" cy="198" rx="17" ry="9"/>
+            <path class="cat-body" d="M62 152 Q60 116 100 116 Q140 116 138 152 Q142 190 100 198 Q58 190 62 152 Z"/>
+            <ellipse class="cat-paw pl" cx="88" cy="170" rx="13" ry="10"/>
+            <ellipse class="cat-paw pr" cx="112" cy="170" rx="13" ry="10"/>
+            <g class="cat-head">
+              <path class="cat-ear el" d="M58 90 L40 36 L94 62 Z"/>
+              <path class="cat-ear er" d="M142 90 L160 36 L106 62 Z"/>
+              <path class="cat-ear-inner i1" d="M62 78 L50 50 L82 64 Z"/>
+              <path class="cat-ear-inner i2" d="M138 78 L150 50 L118 64 Z"/>
+              <ellipse class="cat-face" cx="100" cy="102" rx="54" ry="46"/>
+              <g class="cat-eye e1">
+                <ellipse cx="75" cy="98" rx="11" ry="13"/>
+                <g class="cat-pupils">
+                  <circle class="cat-pupil" cx="77" cy="99" r="6"/>
+                  <circle class="cat-shine" cx="73" cy="94" r="2.4"/>
+                </g>
+              </g>
+              <g class="cat-eye e2">
+                <ellipse cx="125" cy="98" rx="11" ry="13"/>
+                <g class="cat-pupils">
+                  <circle class="cat-pupil" cx="123" cy="99" r="6"/>
+                  <circle class="cat-shine" cx="119" cy="94" r="2.4"/>
+                </g>
+              </g>
+              <path class="cat-nose" d="M100 112 L94 118 L106 118 Z"/>
+              <path class="cat-mouth" d="M100 118 Q100 127 90 125 M100 118 Q100 127 110 125"/>
+              <path class="cat-whisker wl1" d="M58 110 L24 103"/>
+              <path class="cat-whisker wl2" d="M56 121 L24 123"/>
+              <path class="cat-whisker wr1" d="M142 110 L176 103"/>
+              <path class="cat-whisker wr2" d="M144 121 L176 123"/>
+              <circle class="cat-cheek ch1" cx="56" cy="114" r="8"/>
+              <circle class="cat-cheek ch2" cx="144" cy="114" r="8"/>
+            </g>
+            <g class="cat-wave">
+              <ellipse class="cat-paw wp" cx="50" cy="144" rx="13" ry="11"/>
+            </g>
+          </g>
+        </g>
+        <g class="cat-name-tag">
+          <rect class="cat-name-bg" x="52" y="8" width="96" height="26" rx="13"/>
+          <text class="cat-name-text" x="100" y="26" text-anchor="middle">发财</text>
+        </g>
+        <circle class="light-orb" cx="176" cy="62" r="7"/>
+        <circle class="light-ring" cx="176" cy="62" r="12"/>
+      </svg>
+      <svg class="welcome-island" viewBox="0 0 240 120" aria-hidden="true">
+        <ellipse class="island-dirt" cx="120" cy="80" rx="88" ry="16"/>
+        <path class="island-grass" d="M32 80 Q38 54 84 52 Q118 46 156 54 Q204 58 208 80 Q150 94 32 80 Z"/>
+        <g class="island-tree">
+          <rect x="116" y="30" width="8" height="24" rx="4"/>
+          <ellipse cx="120" cy="28" rx="24" ry="17"/>
+          <ellipse cx="101" cy="35" rx="15" ry="12"/>
+          <ellipse cx="139" cy="35" rx="15" ry="12"/>
+        </g>
+      </svg>
+      <svg class="paper-plane" viewBox="0 0 60 40" aria-hidden="true">
+        <path class="plane-body" d="M3 24 L57 6 L40 34 L22 26 Z"/>
+        <path class="plane-fold" d="M3 24 L22 26 M22 26 L40 34 M57 6 L40 34"/>
+      </svg>
+      <div class="companion-glow" aria-hidden="true"></div>
+    </div>
+    <p class="welcome-hint">轻触星空，让文字慢慢生长 ✨</p>
+    <button id="welcomeMusicBtn" class="welcome-music" type="button" title="音乐开关" aria-label="音乐开关">🔊</button>
+    <button id="welcomeSkip" class="welcome-skip" type="button">跳过 ›</button>
+    <button id="welcomeEnter" class="welcome-enter hidden" type="button">一起出发 →</button>
+  </div>
+
+  <!-- 电影镜头质感：胶片噪点 + 暗角 -->
+  <div class="grain-layer" aria-hidden="true"></div>
+  <div class="vignette-layer" aria-hidden="true"></div>
+
+  <!-- 背景流动的柔光 -->
+  <div class="bg-blobs" aria-hidden="true">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+    <span class="blob b3"></span>
+    <span class="blob b4"></span>
+  </div>
+
+  <!-- 漂浮的蒲公英粒子（纯装饰，不拦截点击） -->
+  <canvas id="particles" class="particles" aria-hidden="true"></canvas>
+
+  <div class="shell">
+
+    <!-- 桌面端侧栏导航 -->
+    <aside class="sidebar" id="sidebar">
+      <div class="side-brand">
+        <span class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 46 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle class="logo-sun" cx="34" cy="8" r="4.5" fill="#f4d28a"/>
+            <path class="logo-island" d="M4 20 Q10 13 17 18 Q24 14 32 19 Q37 16 42 19 V24 H4 Z" fill="#4fd6b0"/>
+            <path class="logo-wave w1" d="M4 24 Q9 22.5 14 24 Q19 25.5 24 24 Q29 22.5 34 24 Q39 25.5 44 24" stroke="#79c8f0" stroke-width="1.6" stroke-linecap="round"/>
+            <path class="logo-wave w2" d="M4 27 Q9 25.8 14 27 Q19 28.2 24 27 Q29 25.8 34 27 Q39 28.2 44 27" stroke="#a99ce0" stroke-width="1.6" stroke-linecap="round"/>
+            <circle class="logo-spark s1" cx="12" cy="9" r="1.2" fill="#8fe9ff"/>
+            <circle class="logo-spark s2" cx="26" cy="6" r="1" fill="#f4d28a"/>
+          </svg>
+        </span>
+        <div class="side-brand-txt">
+          <h1>迪迪的心屿</h1>
+          <span>你的情绪岛屿</span>
+        </div>
+      </div>
+      <nav class="side-nav" aria-label="桌面导航">
+        <button class="side-tab active" data-view="now" type="button"><span class="st-emoji">🌱</span><span>此刻</span></button>
+        <button class="side-tab" data-view="ground" type="button"><span class="st-emoji">🧘</span><span>着陆</span></button>
+        <button class="side-tab" data-view="mirror" type="button"><span class="st-emoji">📝</span><span>心镜</span></button>
+        <button class="side-tab" data-view="garden" type="button"><span class="st-emoji">🌊</span><span>共感</span></button>
+        <button class="side-tab" data-view="island" type="button"><span class="st-emoji">📖</span><span>岛屿</span></button>
+      </nav>
+      <div class="side-foot">
+        <button id="sideCrisis" class="side-crisis" type="button">🆘 紧急帮助</button>
+      </div>
+    </aside>
+
+    <div class="app">
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 46 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle class="logo-sun" cx="34" cy="8" r="4.5" fill="#f4d28a"/>
+            <path class="logo-island" d="M4 20 Q10 13 17 18 Q24 14 32 19 Q37 16 42 19 V24 H4 Z" fill="#4fd6b0"/>
+            <path class="logo-wave w1" d="M4 24 Q9 22.5 14 24 Q19 25.5 24 24 Q29 22.5 34 24 Q39 25.5 44 24" stroke="#79c8f0" stroke-width="1.6" stroke-linecap="round"/>
+            <path class="logo-wave w2" d="M4 27 Q9 25.8 14 27 Q19 28.2 24 27 Q29 25.8 34 27 Q39 28.2 44 27" stroke="#a99ce0" stroke-width="1.6" stroke-linecap="round"/>
+            <circle class="logo-spark s1" cx="12" cy="9" r="1.2" fill="#8fe9ff"/>
+            <circle class="logo-spark s2" cx="26" cy="6" r="1" fill="#f4d28a"/>
+          </svg>
+        </span>
+        <h1>迪迪的心屿</h1>
+        <span class="brand-sub">你的情绪岛屿</span>
+      </div>
+      <button id="crisisBtn" class="crisis-btn" type="button">🆘 紧急帮助</button>
+    </header>
+
+    <!-- ============ 🌱 此刻：情绪感知站 ============ -->
+    <main id="view-now" class="view active">
+      <section class="hero-card hero-now">
+        <div class="hero-emoji">🌱</div>
+        <p id="todayGreeting" class="hero-greeting"></p>
+        <h2>此刻，你感觉如何？</h2>
+        <p class="hero-date" id="todayLabel"></p>
+        <p class="hero-note">情绪没有对错，它只是路过你的信号。选下它，让它被看见。</p>
+        <div id="heroStats" class="hero-stats"></div>
+        <span class="hero-deco hd1" aria-hidden="true">☁️</span>
+        <span class="hero-deco hd2" aria-hidden="true">✦</span>
+        <span class="hero-deco hd3" aria-hidden="true">🌿</span>
+      </section>
+
+      <section class="card">
+        <h3>选择此刻的情绪</h3>
+        <div id="emotionGrid" class="emotion-grid"></div>
+
+        <div class="intensity-row">
+          <span class="intensity-label">强度</span>
+          <div id="intensityDots" class="dots"></div>
+        </div>
+
+        <input id="emotionNote" class="input" maxlength="120" placeholder="（可选）此刻想说的一句话…">
+        <button id="saveEmotion" class="btn primary full" type="button">保存这一刻</button>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h3>📋 抑郁自评 · PHQ-9</h3>
+          <span class="mini-note">自评不能替代诊断</span>
+        </div>
+        <div id="phqIntro">
+          <p class="mini-note">9 个关于过去两周的小问题，约 2 分钟。结果只保存在本机，不会上传。</p>
+          <div class="btn-row">
+            <button id="phqStart" class="btn primary" type="button">开始自评</button>
+            <button id="phqHistory" class="btn ghost" type="button">查看趋势</button>
+          </div>
+        </div>
+        <div id="phqQuiz" class="hidden"></div>
+        <div id="phqResult" class="hidden"></div>
+        <div id="phqTrendWrap" class="hidden">
+          <canvas id="phqTrend" aria-label="PHQ-9 分数趋势"></canvas>
+          <p id="phqTrendNote" class="mini-note"></p>
+        </div>
+      </section>
+
+      <section id="spectrumSection" class="card hidden">
+        <div class="card-head">
+          <h3>🌈 我的情绪光谱</h3>
+          <div class="head-actions">
+            <div class="seg-toggle" id="spectrumToggle">
+              <button class="seg active" data-days="7" type="button">近7天</button>
+              <button class="seg" data-days="30" type="button">近30天</button>
+            </div>
+            <button id="spectrumReplay" class="replay-btn" type="button" title="重播轨迹动画">↻</button>
+          </div>
+        </div>
+        <canvas id="spectrumCanvas" aria-label="情绪轨迹曲线"></canvas>
+        <div id="spectrumTip" class="canvas-tip hidden"></div>
+        <p id="spectrumEmpty" class="hint hidden">记录得更多，才能看见你的情绪风景。先保存一次此刻吧。</p>
+        <p id="spectrumInsight" class="insight"></p>
+        <div id="wordCloud" class="cloud"></div>
+      </section>
+
+      <section class="card">
+        <h3>📜 情绪足迹</h3>
+        <div id="emotionHistory" class="history"></div>
+      </section>
+    </main>
+
+    <!-- ============ 🧘 着陆：自适应安抚舱 ============ -->
+    <main id="view-ground" class="view">
+      <section class="hero-card hero-ground">
+        <div class="hero-emoji">🧘</div>
+        <h2>着陆 · 自适应安抚舱</h2>
+        <p>工具跟着人走，而不是人跟着工具走。先感受自己的紧急程度，系统会自动选择最轻、最适合的干预。</p>
+        <span class="hero-deco hd1" aria-hidden="true">🍃</span>
+        <span class="hero-deco hd2" aria-hidden="true">✦</span>
+        <span class="hero-deco hd3" aria-hidden="true">🌊</span>
+      </section>
+
+      <section class="card ground-cabin" id="groundCabin">
+        <div class="card-head">
+          <h3>🧘 着陆舱</h3>
+          <span id="groundStats" class="mini-note"></span>
+        </div>
+
+        <div id="groundStartArea">
+          <p class="mini-note">先感受一下此刻的紧急程度，系统会自动选择最轻、最适合你的着陆方式。</p>
+          <input type="range" id="urgency" min="1" max="10" step="1" value="3" aria-label="紧急程度">
+          <div class="urgency-scale"><span>平静</span><span>有点紧绷</span><span>快要淹没</span></div>
+          <div id="urgencyPill" class="urgency-pill"></div>
+          <button id="startGround" class="btn primary full" type="button">开始着陆</button>
+        </div>
+
+        <!-- 准备倒计时 -->
+        <div id="groundPrepare" class="ground-prepare hidden">
+          <div class="prepare-stage">
+            <div id="prepareCircle" class="prepare-circle"></div>
+            <p id="prepareText" class="prepare-text">准备…</p>
+          </div>
+          <p class="prepare-note">找一个舒服的姿势，让肩膀沉下来，呼吸三下。</p>
+          <button id="prepareSkip" class="btn ghost sm" type="button">直接开始</button>
+        </div>
+
+        <!-- 五感步骤 -->
+        <div id="groundStepWrap" class="hidden">
+          <div class="ground-progress"><div id="groundProgressBar"></div></div>
+          <div id="groundDots" class="ground-dots"></div>
+          <div id="groundStep" class="ground-step">
+            <div id="groundSense" class="ground-sense"></div>
+            <div id="groundNum" class="ground-num">5</div>
+            <p id="groundTask" class="ground-task"></p>
+            <div id="groundExamples" class="ground-examples"></div>
+            <p id="groundCounter" class="ground-counter"></p>
+            <button id="groundNext" class="btn primary full" type="button">找到了 ✓</button>
+          </div>
+        </div>
+
+        <!-- 完成 -->
+        <div id="groundDone" class="hidden">
+          <div class="done-emoji">🌿</div>
+          <h3 id="groundDoneTitle">你回来了。</h3>
+          <p id="groundDoneText" class="done-text"></p>
+          <div id="groundDoneList" class="done-list"></div>
+          <div id="groundRecheck" class="recheck">
+            <p class="recheck-title">现在，再感受一下你的紧急程度</p>
+            <input type="range" id="recheckSlider" min="1" max="10" step="1" value="3" aria-label="再次评估紧急程度">
+            <p id="recheckNote" class="recheck-note"></p>
+          </div>
+          <button id="groundAgain" class="btn ghost full" type="button">再练一次</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h3>🧰 着陆工具箱</h3>
+          <span id="groundStats" class="mini-note"></span>
+        </div>
+        <div class="toolbox-tabs" role="tablist" aria-label="着陆工具箱">
+          <button class="toolbox-tab active" data-tool="scan" type="button">🫀 身体扫描</button>
+          <button class="toolbox-tab" data-tool="senses" type="button">👂 三听一触</button>
+          <button class="toolbox-tab" data-tool="breath" type="button">🫧 快速呼吸</button>
+          <button class="toolbox-tab" data-tool="478" type="button">🌬 4-7-8 呼吸</button>
+        </div>
+
+        <div id="toolScan" class="tool-stage active">
+          <div class="scan-layout">
+            <svg class="scan-body" viewBox="0 0 160 260" aria-label="身体扫描示意图">
+              <path class="scan-figure" d="M80 64 C 58 64, 46 80, 46 100 C 44 130, 46 160, 44 178 L 60 178 L 62 150 L 68 150 L 66 214 L 80 214 L 80 172 L 94 214 L 96 150 L 102 150 L 104 178 L 120 178 C 118 160, 118 130, 114 100 C 112 80, 102 64, 80 64 Z"/>
+              <circle cx="80" cy="42" r="22"/>
+              <circle class="scan-spot" data-part="head" cx="80" cy="42" r="13"/>
+              <circle class="scan-spot" data-part="shoulder" cx="48" cy="98" r="11"/>
+              <circle class="scan-spot" data-part="chest" cx="80" cy="118" r="12"/>
+              <circle class="scan-spot" data-part="belly" cx="80" cy="148" r="11"/>
+              <circle class="scan-spot" data-part="palm" cx="46" cy="162" r="10"/>
+              <circle class="scan-spot" data-part="sole" cx="90" cy="212" r="10"/>
+            </svg>
+            <div class="scan-panel">
+              <p id="scanPrompt" class="scan-prompt">点一点身体上的光点，把注意力带回来。</p>
+              <p id="scanProgress" class="scan-progress"></p>
+              <button id="scanReset" class="btn ghost sm hidden" type="button">再扫一次</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="toolSenses" class="tool-stage"></div>
+        <div id="toolBreath" class="tool-stage">
+          <div class="quick-breath">
+            <p class="mini-note">不想走完整流程时，可以只跟着呼吸走两轮（约 40 秒），让身体先缓一缓。</p>
+            <button id="quickBreath" class="btn primary sm" type="button">开始快速呼吸 🫧</button>
+          </div>
+        </div>
+        <div id="tool478" class="tool-stage">
+          <div class="b478-stage">
+            <div class="mini-breathe">
+              <div id="b478Circle" class="mini-breath-circle b478-circle"></div>
+            </div>
+            <p id="b478Phase" class="mini-breath-text">吸气…</p>
+            <p id="b478Count" class="mini-breath-count">第 1 / 4 轮</p>
+            <button id="b478Toggle" class="btn primary sm" type="button">开始</button>
+            <p id="b478Done" class="b478-done hidden">4-7-8 呼吸完成，身体慢慢松下来了 🌬️</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ 📝 心镜：多模态日记本 ============ -->
+    <main id="view-mirror" class="view">
+      <section class="hero-card hero-mirror">
+        <div class="hero-emoji">📝</div>
+        <h2>心镜 · 多模态日记本</h2>
+        <p>说不出的情绪，画出来。文字与涂鸦都会与当天的情绪标签一起，归档成你专属的情绪日记。</p>
+      </section>
+
+      <section class="card">
+        <h3>✍️ 今天的心事</h3>
+        <p class="mini-note">不用写得很完整。一个词、一种颜色，都算数。所有内容只保存在这台设备。</p>
+
+        <div class="mirror-block">
+          <span class="mirror-label">此刻的心情</span>
+          <div id="mirrorEmotions" class="mirror-emotions" role="radiogroup" aria-label="此刻的心情"></div>
+        </div>
+
+        <div class="intensity-row">
+          <span class="intensity-label">强度</span>
+          <input type="range" id="mirrorIntensity" min="0" max="10" step="1" value="5" aria-label="情绪强度">
+          <b id="mirrorIntensityVal" class="mirror-intensity-val">5</b>
+        </div>
+
+        <div class="mirror-block">
+          <span class="mirror-label">哪些词更接近此刻的你？（可多选）</span>
+          <div id="mirrorKeywords" class="mirror-keywords"></div>
+        </div>
+
+        <div class="mirror-block">
+          <span class="mirror-label">想说的话</span>
+          <textarea id="mirrorText" class="input textarea" rows="3" maxlength="300" placeholder="用文字记下此刻…（可选）"></textarea>
+          <div class="mirror-prompt">
+            <span id="mirrorPromptText" class="mirror-prompt-text"></span>
+            <button id="mirrorPromptUse" class="btn ghost sm" type="button">用这句</button>
+            <button id="mirrorPromptNext" class="btn ghost sm" type="button">换一句</button>
+          </div>
+        </div>
+
+        <div class="mirror-block">
+          <span class="mirror-label">今天的一件小事（哪怕只是呼吸了一口新鲜空气）</span>
+          <input id="mirrorSmall" class="input" maxlength="60" placeholder="例：喝了一杯热水 / 晒了五分钟太阳">
+        </div>
+
+        <div class="mirror-block">
+          <span class="mirror-label">想对自己说的话</span>
+          <input id="mirrorSelf" class="input" maxlength="80" placeholder="例：今天撑到这里，已经很好了">
+        </div>
+
+        <div class="draw-box">
+          <canvas id="mirrorCanvas" width="720" height="840" aria-label="情绪画板"></canvas>
+          <div class="draw-tools">
+            <div class="dt-row">
+              <span class="dt-group-label">工具</span>
+              <div id="drawTools" class="dt-group" role="toolbar" aria-label="绘画工具"></div>
+            </div>
+            <div class="dt-row">
+              <span class="dt-group-label">颜色</span>
+              <div id="drawColors" class="dt-colors"></div>
+              <label class="color-pick" title="自定义颜色">
+                <input type="color" id="mirrorColorPicker" value="#5b8a70" aria-label="自定义颜色">
+              </label>
+            </div>
+            <div class="dt-row">
+              <span class="dt-group-label">粗细</span>
+              <input type="range" id="drawSize" min="2" max="28" step="1" value="8" aria-label="画笔粗细">
+              <span class="size-preview" id="sizePreview" aria-hidden="true"></span>
+              <span class="size-note" id="sizeNote">8</span>
+              <span class="dt-spacer"></span>
+              <button id="stampToggle" class="dt-mini" type="button" title="印章">🖇️</button>
+            </div>
+            <div id="stampPalette" class="stamp-palette hidden" title="盖一个心情印章"></div>
+            <div class="dt-row dt-actions">
+              <button id="drawUndo" class="dt-mini" type="button" title="撤销 (Ctrl+Z)">↩</button>
+              <button id="drawRedo" class="dt-mini" type="button" title="重做 (Ctrl+Shift+Z)">↪</button>
+              <button id="drawClear" class="dt-mini" type="button" title="清空">🗑</button>
+              <span class="dt-hint">画笔：按住拖动 · 形状：拖动预览</span>
+            </div>
+          </div>
+          <p class="mini-note">系统不评判你的画，只陪你把说不出口的心情放下来。</p>
+        </div>
+
+        <button id="saveMirror" class="btn primary full" type="button">存入心镜</button>
+      </section>
+
+      <section class="card">
+        <h3>🖼️ 我的日记</h3>
+        <div id="mirrorGallery" class="gallery"></div>
+      </section>
+    </main>
+
+    <!-- ============ 🌊 共感：匿名互助花园 ============ -->
+    <main id="view-garden" class="view">
+      <section class="hero-card hero-garden">
+        <div class="hero-emoji">🌊</div>
+        <h2>共感花园 · 你不是一个人</h2>
+        <p>这里只留下情绪，不留下身份。你的感受是普遍的，不是异类。</p>
+      </section>
+
+      <section class="card">
+        <h3>留下此刻的感受</h3>
+        <p class="mini-note">一句话就好，只说情绪、不说事件。</p>
+        <textarea id="gardenText" class="input textarea" rows="2" maxlength="60" placeholder="例：今天有点低落，但我知道它会过去。"></textarea>
+        <div class="garden-char-row">
+          <span class="mini-note">🔒 匿名发布 · 高风险内容将被自动拦截</span>
+          <span id="gardenCount" class="char-count">0/60</span>
+        </div>
+        <div id="gardenEmotions" class="garden-emotions"></div>
+        <button id="postGarden" class="btn primary full" type="button">让蒲公英飘走 🌼</button>
+      </section>
+
+      <section id="clusterBar" class="card cluster hidden"></section>
+
+      <section class="card wall-card">
+        <h3>🍃 此刻的蒲公英</h3>
+        <div id="gardenWall" class="garden-wall"></div>
+      </section>
+    </main>
+
+    <!-- ============ 📖 岛屿：资源与微光 ============ -->
+    <main id="view-island" class="view">
+      <section class="hero-card hero-island">
+        <div class="hero-emoji">📖</div>
+        <h2>岛屿 · 资源与微光</h2>
+        <p>昨天你选择了「焦虑」，今天给你一点小暗示。被记住，也被理解。</p>
+      </section>
+
+      <section id="lightCard" class="card light-card hidden"></section>
+
+      <section class="card" id="gardenCard">
+        <div class="card-head">
+          <h3>🌸 我的情绪花园</h3>
+          <span id="gardenStats" class="mini-note"></span>
+        </div>
+        <p class="mini-note">每一次认真感受自己，花园里就会开出一朵花。花会记住你那天的心情。</p>
+        <div id="gardenBed" class="garden-bed"></div>
+        <div class="btn-row">
+          <button id="plantFlower" class="btn primary" type="button">种下今天的花 🌱</button>
+          <button id="gardenWater" class="btn ghost" type="button">浇浇水 ✨</button>
+        </div>
+        <p id="gardenTip" class="mini-note"></p>
+      </section>
+
+      <section class="card" id="catchCard">
+        <div class="card-head">
+          <h3>✨ 发财接星星</h3>
+          <span id="catchStats" class="mini-note"></span>
+        </div>
+        <p class="mini-note">让发财跟着你的光标/手指，去接住飘落的星星。接到 10 颗，花园就会多一束萤火。</p>
+        <div class="catch-wrap">
+          <canvas id="catchCanvas" aria-label="发财接星星小游戏"></canvas>
+        </div>
+        <div class="btn-row">
+          <button id="catchStart" class="btn primary" type="button">开始接星星 ✨</button>
+          <button id="catchReset" class="btn ghost" type="button">重新开始</button>
+        </div>
+      </section>
+
+      <section class="card" id="calmCard">
+        <div class="card-head">
+          <h3>🏝️ 安心小岛</h3>
+          <span id="calmStats" class="mini-note"></span>
+        </div>
+        <p class="mini-note">岛上散落着几件小东西，点一点把它们收进木箱。收齐后，小岛会为你亮起来。</p>
+        <div id="calmScene" class="calm-scene">
+          <svg class="calm-island-svg" viewBox="0 0 360 200" aria-hidden="true">
+            <path class="calm-sea" d="M0 140 Q90 124 180 140 T360 140 V200 H0 Z"/>
+            <path class="calm-ground" d="M60 160 Q120 108 180 150 Q260 112 300 160 Q310 180 300 200 H60 Z"/>
+            <ellipse class="calm-sand" cx="180" cy="170" rx="86" ry="16"/>
+            <path class="calm-tree-trunk" d="M250 150 L250 118"/>
+            <ellipse class="calm-tree" cx="250" cy="112" rx="26" ry="20"/>
+            <circle class="calm-moon" cx="300" cy="46" r="16"/>
+          </svg>
+          <div id="calmItems" class="calm-items"></div>
+          <div id="calmBasket" class="calm-basket">🧺</div>
+          <p id="calmMsg" class="calm-msg"></p>
+        </div>
+        <div class="btn-row">
+          <button id="calmReset" class="btn ghost" type="button">重新摆放</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>🕯️ 微光相册</h3>
+        <div id="lightHistory" class="light-history"></div>
+      </section>
+
+      <section class="card">
+        <h3>🧭 自愈小站</h3>
+        <div class="resources">
+          <article class="resource" id="resBreath">
+            <div class="res-top">
+              <span class="resource-emoji">🌬️</span>
+              <div class="res-txt">
+                <h4>四七呼吸法</h4>
+                <p>吸气 4 秒 · 屏住 4 秒 · 呼气 7 秒，连做 4 轮，让神经系统慢下来。</p>
+              </div>
+              <span class="res-badge">互动</span>
+            </div>
+            <button class="btn ghost sm res-btn" data-action="breath" type="button">开始一次引导 🌬️</button>
+            <div class="res-stage hidden" id="breathMiniStage">
+              <div class="mini-breathe">
+                <div id="miniBreathCircle" class="mini-breath-circle"></div>
+              </div>
+              <p id="miniBreathText" class="mini-breath-text"></p>
+              <p id="miniBreathCount" class="mini-breath-count"></p>
+              <button id="miniBreathStop" class="btn ghost sm" type="button">结束练习</button>
+            </div>
+          </article>
+
+          <article class="resource" id="resSleep">
+            <div class="res-top">
+              <span class="resource-emoji">🛏️</span>
+              <div class="res-txt">
+                <h4>睡前微光 · 三件小事</h4>
+                <p>睡前写下今天的三件小事——哪怕只是「喝了一杯热水」。</p>
+              </div>
+              <span class="res-badge">互动</span>
+            </div>
+            <div id="smallThings" class="small-things">
+              <label class="small-item"><input type="text" maxlength="30" placeholder="第 1 件小事…"><span class="small-check">✓</span></label>
+              <label class="small-item"><input type="text" maxlength="30" placeholder="第 2 件小事…"><span class="small-check">✓</span></label>
+              <label class="small-item"><input type="text" maxlength="30" placeholder="第 3 件小事…"><span class="small-check">✓</span></label>
+            </div>
+            <div id="smallProgress" class="small-progress"><span></span></div>
+            <p id="smallNote" class="mini-note"></p>
+          </article>
+
+          <article class="resource" id="resName">
+            <div class="res-top">
+              <span class="resource-emoji">🌳</span>
+              <div class="res-txt">
+                <h4>给情绪命名</h4>
+                <p>「我很难过」和「我是难过的人」不一样。命名它，才能拉开距离。</p>
+              </div>
+              <span class="res-badge">互动</span>
+            </div>
+            <div id="nameEmotions" class="name-emotions"></div>
+            <div id="nameStage" class="name-stage hidden">
+              <p id="nameLine" class="name-line"></p>
+              <button id="nameLetGo" class="btn ghost sm" type="button">让它在云里飘走 ☁️</button>
+            </div>
+          </article>
+
+          <article class="resource" id="resConnect">
+            <div class="res-top">
+              <span class="resource-emoji">🤝</span>
+              <div class="res-txt">
+                <h4>寻求连接 · 备好一句问候</h4>
+                <p>点一句温柔的问候，复制下来，发给信任的人。</p>
+              </div>
+              <span class="res-badge">互动</span>
+            </div>
+            <div id="connectPhrases" class="connect-phrases"></div>
+          </article>
+
+          <article class="resource" id="resThought">
+            <div class="res-top">
+              <span class="resource-emoji">📝</span>
+              <div class="res-txt">
+                <h4>思维记录表</h4>
+                <p>把「情境 → 自动想法 → 证据 → 更平衡的想法」写在纸上，站远一点看看它。</p>
+              </div>
+              <span class="res-badge">循证</span>
+            </div>
+            <button class="btn ghost sm" data-action="thought" type="button">写一张思维记录表 📝</button>
+            <div id="thoughtList" class="thought-list"></div>
+          </article>
+
+          <article class="resource" id="resPlan">
+            <div class="res-top">
+              <span class="resource-emoji">🛟</span>
+              <div class="res-txt">
+                <h4>安全计划 · 六步避险</h4>
+                <p>在平静的时候填好：预警信号、能做的事、能找的人、求助热线、让环境更安全。</p>
+              </div>
+              <span class="res-badge">安全</span>
+            </div>
+            <button class="btn ghost sm" data-action="plan" type="button">填写 / 查看安全计划 🛟</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>📄 我的情绪报告与数据</h3>
+        <p class="mini-note">见咨询师或医生前，可以生成一份情绪小结带走；所有数据都只保存在这台设备。</p>
+        <div class="btn-row">
+          <button id="openReport" class="btn primary" type="button">生成情绪报告 📄</button>
+          <button id="openPrivacy" class="btn ghost" type="button">隐私与数据 🔐</button>
+        </div>
+      </section>
+
+      <section class="card crisis-card">
+        <h3>🆘 如果你正在经历危机</h3>
+        <p>自我调节有边界。持续的痛苦值得专业的陪伴，请随时使用上方「紧急帮助」中的热线，或前往就近医院。</p>
+        <button id="islandCrisisBtn" class="btn ghost full" type="button">查看求助热线</button>
+      </section>
+
+      <footer class="footnote">
+        迪迪的心屿提供自我调节与陪伴，不能替代专业医疗。<br>
+        如有持续困扰，请寻求心理科或心理咨询师的专业帮助。
+      </footer>
+    </main>
+
+    <!-- 底部 Tab 导航 -->
+    <nav class="tabbar" aria-label="主导航">
+      <button class="tab active" data-view="now" type="button">
+        <span class="tab-emoji">🌱</span><span class="tab-label">此刻</span>
+      </button>
+      <button class="tab" data-view="ground" type="button">
+        <span class="tab-emoji">🧘</span><span class="tab-label">着陆</span>
+      </button>
+      <button class="tab" data-view="mirror" type="button">
+        <span class="tab-emoji">📝</span><span class="tab-label">心镜</span>
+      </button>
+      <button class="tab" data-view="garden" type="button">
+        <span class="tab-emoji">🌊</span><span class="tab-label">共感</span>
+      </button>
+      <button class="tab" data-view="island" type="button">
+        <span class="tab-emoji">📖</span><span class="tab-label">岛屿</span>
+      </button>
+    </nav>
+  </div>
+  </div>
+
+  <!-- 呼吸泡泡全屏沉浸模式 -->
+  <div id="breathOverlay" class="breath-overlay hidden">
+    <div class="breath-inner">
+      <button id="breathSound" class="sound-btn" type="button">🔇 引导音</button>
+      <div class="breath-stage">
+        <div id="breathBubbles" class="breath-bubbles" aria-hidden="true"></div>
+        <div id="breathCircle" class="breath-circle"></div>
+      </div>
+      <p id="breathText" class="breath-text">吸气…</p>
+      <p class="breath-cycle">第 <span id="breathCount">1</span> / 4 轮</p>
+      <button id="breathSkip" class="btn ghost full" type="button">结束练习</button>
+    </div>
+  </div>
+
+  <!-- 危机帮助 / 高风险提示 -->
+  <div id="crisisOverlay" class="overlay hidden">
+    <div class="overlay-card">
+      <h3 id="careTitle">🆘 你不需要独自承受</h3>
+      <p id="careText">如果此刻你感到难以承受，请立即联系专业支持：</p>
+      <ul class="hotlines">
+        <li class="hotline-locked">
+          <b>📱 永远爱迪迪的松</b>
+          <button id="loveUnlock" class="hotline-lock" type="button">155****7610 · 解锁 🔒</button>
+        </li>
+        <li><b>全国心理援助热线</b><a class="hotline-tel" href="tel:12356">12356 · 24小时</a></li>
+        <li><b>希望24热线（危机干预）</b><a class="hotline-tel" href="tel:4001619995">400-161-9995</a></li>
+        <li><b>北京心理危机研究与干预中心</b><a class="hotline-tel" href="tel:01082951332">010-82951332</a></li>
+        <li><b>青少年心理援助</b><a class="hotline-tel" href="tel:12355">12355</a></li>
+      </ul>
+      <div id="loveReveal" class="love-reveal hidden">
+        <form id="loveForm" class="love-form">
+          <input id="lovePwd" class="input" type="password" inputmode="numeric" maxlength="6" placeholder="输入解锁密码" aria-label="解锁密码" autocomplete="off">
+          <button id="loveGo" class="btn ghost sm" type="submit">解锁并拨打</button>
+        </form>
+      </div>
+      <p class="mini-note">情况紧急请直接拨打 <a class="hotline-tel emergency" href="tel:120">120</a>，或前往最近医院的急诊。你的生命值得被认真对待。</p>
+      <button id="crisisPlan" class="btn ghost full" type="button">打开我的安全计划 🛟</button>
+      <button id="crisisClose" class="btn primary full" type="button">我会照顾好自己</button>
+    </div>
+  </div>
+
+  <!-- 安全计划 -->
+  <div id="planOverlay" class="overlay hidden">
+    <div class="overlay-card plan-card">
+      <h3>🛟 我的安全计划</h3>
+      <p class="mini-note">在平静的时候填写。情绪汹涌时，请按顺序往下走；做不到也没关系，直接跳到第 4、5 步。</p>
+      <div id="planView" class="hidden"></div>
+      <div id="planForm">
+        <label class="plan-step"><span>1 · 预警信号：什么迹象说明我快要撑不住了？</span><textarea id="plan1" rows="2" placeholder="例：连续两晚睡不好、开始躲着所有人、反复想消失"></textarea></label>
+        <label class="plan-step"><span>2 · 我自己能做的事：</span><textarea id="plan2" rows="2" placeholder="例：洗一把脸、听那首让我平静的歌、给绿植浇水"></textarea></label>
+        <label class="plan-step"><span>3 · 能让我分散注意力的人和地方：</span><textarea id="plan3" rows="2" placeholder="例：楼下公园、猫咖、给朋友发猫的照片"></textarea></label>
+        <label class="plan-step"><span>4 · 能帮助我的人（名字 + 怎么联系）：</span><textarea id="plan4" rows="2" placeholder="例：小迪 138xxxx / 妈妈 139xxxx"></textarea></label>
+        <label class="plan-step"><span>5 · 专业人士与求助热线：</span><textarea id="plan5" rows="2" placeholder="例：12356 全国心理援助热线 / 我的咨询师电话"></textarea></label>
+        <label class="plan-step"><span>6 · 让环境更安全（把危险物品收起来）：</span><textarea id="plan6" rows="2" placeholder="例：请家人保管药品，远离高楼边缘"></textarea></label>
+        <div class="btn-row">
+          <button id="savePlan" class="btn primary" type="button">保存安全计划</button>
+          <button id="planClose" class="btn ghost" type="button">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 思维记录表 -->
+  <div id="thoughtOverlay" class="overlay hidden">
+    <div class="overlay-card">
+      <h3>📝 思维记录表</h3>
+      <p class="mini-note">不是逼自己「积极思考」，只是把想法放在纸上，站远一点看看它。</p>
+      <label class="field-label">发生了什么？（情境）<textarea id="thoughtSituation" class="input textarea" rows="2" placeholder="例：给朋友发消息，ta 没回"></textarea></label>
+      <label class="field-label">当时的情绪和强度（0-10）<input id="thoughtEmotion" class="input" type="number" min="0" max="10" step="1" value="7" aria-label="情绪强度"></label>
+      <label class="field-label">脑海里自动冒出的想法<textarea id="thoughtAuto" class="input textarea" rows="2" placeholder="例：ta 一定烦我了，我总是不讨人喜欢"></textarea></label>
+      <label class="field-label">支持 / 不支持这个想法的证据<textarea id="thoughtEvidence" class="input textarea" rows="2" placeholder="支持：ta 今天没回我。不支持：ta 昨天还主动找我，也可能只是忙"></textarea></label>
+      <label class="field-label">更平衡的想法<textarea id="thoughtBalance" class="input textarea" rows="2" placeholder="例：ta 可能只是忙，我可以等 ta 空了再聊"></textarea></label>
+      <div class="btn-row">
+        <button id="saveThought" class="btn primary" type="button">保存这张记录</button>
+        <button id="thoughtClose" class="btn ghost" type="button">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 情绪报告 -->
+  <div id="reportOverlay" class="overlay hidden">
+    <div class="overlay-card">
+      <div class="card-head">
+        <h3>📄 我的情绪报告</h3>
+        <span class="mini-note">近 30 天 · 本机生成</span>
+      </div>
+      <div id="reportBody" class="report-body"></div>
+      <div class="btn-row">
+        <button id="reportCopy" class="btn primary" type="button">复制报告</button>
+        <button id="reportExport" class="btn ghost" type="button">导出全部数据(JSON)</button>
+        <button id="reportClose" class="btn ghost" type="button">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 隐私与数据 -->
+  <div id="privacyOverlay" class="overlay hidden">
+    <div class="overlay-card">
+      <h3>🔐 隐私与数据</h3>
+      <p class="mini-note">这个网站没有服务器，所有情绪、日记、量表记录都只保存在你这台设备的浏览器里，不会上传到任何地方。</p>
+      <label class="remind-row">
+        <input type="checkbox" id="remindToggle" aria-label="晚间提醒">
+        <span>每晚 21 点（页面打开时）提醒我回来看看自己</span>
+      </label>
+      <div class="btn-row">
+        <button id="privacyExport" class="btn ghost" type="button">导出全部数据(JSON)</button>
+        <button id="privacyDelete" class="btn ghost danger" type="button">删除全部数据</button>
+        <button id="privacyClose" class="btn ghost" type="button">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="js/shared-v54.js?v=20260802-54"></script>
+  <script src="js/storage-v54.js?v=20260802-54"></script>
+  <script src="js/emotion-v54.js?v=20260802-54"></script>
+  <script src="js/grounding-v56.js?v=20260802-62"></script>
+  <script src="js/mirror-v59.js?v=20260802-59"></script>
+  <script src="js/garden-v54.js?v=20260802-54"></script>
+  <script src="js/island-v54.js?v=20260802-54"></script>
+  <script src="js/splash-v55.js?v=20260802-68"></script>
+  <script src="js/welcome-v60.js?v=20260802-60"></script>
+  <script src="js/ambient-v54.js?v=20260802-54"></script>
+  <script src="js/heal-v67.js?v=20260802-67"></script>
+  <script src="js/app-v54.js?v=20260802-54"></script>
+</body>
+</html>
